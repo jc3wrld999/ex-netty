@@ -4,7 +4,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.ex.netty.echo.EchoServer;
+import com.ex.netty.blocking.BlockingServer;
+import com.ex.netty.blocking.NonBlockingServer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,8 +17,9 @@ public class ApplicationStartupTask implements ApplicationListener<ApplicationRe
     public void onApplicationEvent(ApplicationReadyEvent event) {
         System.out.println("[Starting Spring Boot]");
         try {
-            new EchoServer().start();
-        } catch (InterruptedException e) {
+            // new EchoServer().start();
+            new NonBlockingServer().startEchoServer();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
